@@ -1,10 +1,10 @@
 # Emulator
 ## Scripts
-- Maximim Latin hypercube space filling design for training data setup (`latin_hypercube.ipynb`).
-- Test emulator of Gaussian process (GP) regressor for 20 random grid cells (`emulator_gp-matern.ipynb`).
-- Randomised cross-validation of various GP kernels and their hyperparameters (`randomised-cv_gp-kernels.ipynb`).
-- Bayesian cross-validation of hyperparameters for GP with Matern kernel (`bayesian-cv_gp-matern.ipynb`).
-- Automatic machine learning tool using genetic programming to optimise model pipeline (`optimise_pipeline_gp-matern.ipynb`).
+- Crop emissions data to China shapefile training (`emis_apply_mask_train.py`) and test (`emis_apply_mask_test.py`) data.  
+- Design of Latin hypercube designs (`latin_hypercube.ipynb`).  
+- Output of Latin hypercube designs for training (`latin_hypercube_inputs_training.csv`) and test (`latin_hypercube_inputs_test.csv`) data.  
+- Automatic machine learning tool using genetic programming to optimise model pipeline on 50 random grid cells (`tpot_optimiser.py`).  
+- Emulator run and evaluation (`emulator.py`).  
 
 ## Setup Python environment
 - Create a conda environment with the required libraries from the config file (.yml) in the repository:
