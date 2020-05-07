@@ -54,7 +54,7 @@ for output in outputs:
         
         set_param_recursive(emulator.steps, 'random_state', 123)
 
-        r2_cv = cross_val_score(emulator, X_train, y_train, cv=cv, scoring='r2')
+        r2_cv = cross_val_score(emulator, X_train, y_train, cv=10, scoring='r2')
         rmse_cv = np.sqrt(np.abs(cross_val_score(emulator, X_train, y_train, cv=10, scoring='neg_mean_squared_error')))
 
         emulator.fit(X_train, y_train)
