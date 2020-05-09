@@ -3,7 +3,7 @@
 - Crop emissions data to China shapefile training (`emis_apply_mask_train.py`) and test (`emis_apply_mask_test.py`) data.  
 - Design of Latin hypercube designs (`latin_hypercube.ipynb`).  
 - Output of Latin hypercube designs for training (`latin_hypercube_inputs_training.csv`) and test (`latin_hypercube_inputs_test.csv`) data.  
-- Automatic machine learning tool (TPOT) using genetic programming to optimise model pipeline on 50 random grid cells (`tpot_optimiser.py`).  
+- Automatic machine learning tool (TPOT) using genetic programming to optimise model pipeline on 50 random grid cells (`tpot_optimiser.py`), with outputs in the `tpot_gridcells` folder (`tpot_emulator_pipeline_PM2_5_DRY_*.py`).  
 - Configuration for TPOT based on Gaussian process regresor (`config_regressor_gaussian.py`).  
 - Emulator run and evaluation (`emulator.py`).  
 
