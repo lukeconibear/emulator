@@ -5,9 +5,7 @@ import numpy as np
 from tpot import TPOTRegressor
 from sklearn.model_selection import train_test_split
 import sklearn
-import sys
-sys.path.append('/nobackup/earlacoa/machinelearning/data/')
-from regressor_gaussian import tpot_config
+from config_regressor_gaussian import tpot_config
 
 path = '/nobackup/earlacoa/machinelearning/data/'
 

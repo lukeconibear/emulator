@@ -6,10 +6,9 @@ from scipy.stats import pearsonr
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import PowerTransformer
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern
-from tpot.builtins import ZeroCount
 from tpot.export_utils import set_param_recursive
 
 path = '/nobackup/earlacoa/machinelearning/data/'
@@ -47,9 +46,8 @@ for output in outputs:
         y_test = df_test_gridcell[output].values
 
         emulator = make_pipeline(
-            ZeroCount(),
-            Normalizer(norm="l1"),
-            GaussianProcessRegressor(kernel=Matern(length_scale=1.0, nu=2.5), n_restarts_optimizer=45, normalize_y=False)
+            PowerTransformer(),
+            GaussianProcessRegressor(kernel=Matern(length_scale=3.4000000000000004, nu=2.5), n_restarts_optimizer=240, normalize_y=False)
         )
         
         set_param_recursive(emulator.steps, 'random_state', 123)
