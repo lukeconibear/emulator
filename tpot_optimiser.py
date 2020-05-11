@@ -6,6 +6,7 @@ from tpot import TPOTRegressor
 from sklearn.model_selection import train_test_split
 import sklearn
 from config_regressor_gaussian import tpot_config
+import concurrent.futures
 
 path = '/nobackup/earlacoa/machinelearning/data/'
 
@@ -29,7 +30,7 @@ output = 'PM2_5_DRY'
 np.random.seed(123)
 random_indexes = np.random.randint(low=0, high=np.shape(df_train[['lat', 'lon']].drop_duplicates().values)[0], size=50)
 
-for index, random_index in enumerate(random_indexes):
+def run_tpot(random_index):
     lat, lon = df_train[['lat', 'lon']].drop_duplicates().values[random_index]
 
     df_train_gridcell = df_train.loc[df_train.lat == lat].loc[df_train.lon == lon]
@@ -54,7 +55,9 @@ for index, random_index in enumerate(random_indexes):
     )
 
     emulator.fit(X_train, y_train)
-    print('training/validation 10-fold cv is the final one of the above')
-    print(f"test/holdout r2 = {emulator.score(X_test, y_test):.4f}")
     emulator.export(path + 'tpot_emulator_pipeline_' + output + '_' + str(lat) + '_' + str(lon) + '.py')
+    return f"test/holdout r2 = {emulator.score(X_test, y_test):.4f}"
+
+with concurrent.futures.ProcessPoolExecutor() as executor:
+    results = [executor.submit(run_tpot, random_index) for random_index in random_indexes]
 
