@@ -17,7 +17,7 @@ import joblib
 
 # setup emulator inputs and outputs
 
-output = 'PM2_5_DRY' # could paralleise over outputs
+output = 'PM2_5_DRY' # could parallelise over outputs
 #output = 'o3'
 
 path = '~/' # change this to where the data is
@@ -83,7 +83,14 @@ for gridcell in df_train[['lat', 'lon']].drop_duplicates().values.tolist(): # sh
 
     emulator = make_pipeline(
         PowerTransformer(),
-        GaussianProcessRegressor(kernel=Matern(length_scale=3.4000000000000004, nu=2.5), n_restarts_optimizer=240, normalize_y=False)
+        GaussianProcessRegressor(
+            kernel=Matern(
+                length_scale=3.4000000000000004, 
+                nu=2.5
+            ), 
+            n_restarts_optimizer=240, 
+            normalize_y=False
+        )
     )
     
     set_param_recursive(emulator.steps, 'random_state', 123)
