@@ -10,11 +10,13 @@
 ### Setup Python environment
 - Create a conda environment with the required libraries from the config file (.yml) in the repository:
 ```
-conda env create --name emulator --file=emulator.yml
+conda env create --name emulator --file=emulator.yml  
+pip install SALib  
 ```
 - Or create your own using:
 ```
-conda create -n emulator -c conda-forge numpy matplotlib pandas scipy seaborn scikit-learn tpot dask dask-ml scikit-optimize pydoe jupyter
+conda create -n emulator -c conda-forge numpy matplotlib pandas scipy seaborn scikit-learn tpot dask dask-ml scikit-optimize pydoe jupyter  
+pip install SALib  
 ```  
 ### License  
 This code is currently licensed under the GPLv3 License, free of charge for non-commercial use.  
