@@ -67,9 +67,11 @@ for gridcell in df_train[['lat', 'lon']].drop_duplicates().values.tolist(): # sh
     
     set_param_recursive(emulator.steps, 'random_state', 123)
 
-    cv = cross_validate(emulator, X_train, y_train, cv=10, scoring={'r2': 'r2', 'rmse': 'neg_mean_squared_error'})
+    with joblib.parallel_backend('dask'):    
+        cv = cross_validate(emulator, X_train, y_train, cv=10, scoring={'r2': 'r2', 'rmse': 'neg_mean_squared_error'})
+        emulator.fit(X_train, y_train)
 
-    emulator.fit(X_train, y_train)
+        
     joblib.dump(emulator, path + output + '/emulator_' + output + '_' + str(lat) + '_' + str(lon) + '.joblib')
 
     r2_cv = cv['test_r2']
