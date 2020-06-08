@@ -82,11 +82,11 @@ for sim in sim_list:
                 emis_file = emis_file[:-3] + '_' + scenario + '.nc' # update emis_file filename to add the scenario to the end
                 print('updating for: ', emis_file)
                 sec = emis[scenario]
-				# mark shapefiles with 1 or np.nan (needs the extra step)
-				sec['china'] = rasterize(shapes_china, sec.coords, longitude='lon', latitude='lat') # in shapefile == 0, outside == np.nan
-				sec['china'] = sec.china.where(cond=sec.china!=0, other=1) # if condition (outside china, as inside == 0) preserve, otherwise (1, to mark in china)
-				# if condition is shapefile (==1) or not (!=1) preserve, otherwise replace with
-				sec = sec.where(cond=sec.china!=1, other=sec * test_data[int(sim.replace('t', '')) - 50][index]) # if condition (not in china) preserve, otherwise (in china, and scale)
+		# mark shapefiles with 1 or np.nan (needs the extra step)
+		sec['china'] = rasterize(shapes_china, sec.coords, longitude='lon', latitude='lat') # in shapefile == 0, outside == np.nan
+		sec['china'] = sec.china.where(cond=sec.china!=0, other=1) # if condition (outside china, as inside == 0) preserve, otherwise (1, to mark in china)
+		# if condition is shapefile (==1) or not (!=1) preserve, otherwise replace with
+		sec = sec.where(cond=sec.china!=1, other=sec * test_data[int(sim.replace('t', '')) - 50][index]) # if condition (not in china) preserve, otherwise (in china, and scale)
                 emis[scenario] = sec
                 print('writing updated: ', emis_file)
                 emis.to_netcdf(emis_file)
