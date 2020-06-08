@@ -22,6 +22,9 @@ df_test = pd.concat(dict_test, ignore_index=True)
 inputs_train = pd.read_csv(path + 'latin_hypercube_inputs_train.csv')
 inputs_test = pd.read_csv(path + 'latin_hypercube_inputs_test.csv')
 
+X_train = inputs_train.values
+X_test = inputs_test.values
+
 lats = df_train[['lat', 'lon']].drop_duplicates()['lat'].values
 lons = df_train[['lat', 'lon']].drop_duplicates()['lon'].values
 
@@ -36,10 +39,7 @@ def run_tpot(random_index):
     df_train_gridcell = df_train.loc[df_train.lat == lat].loc[df_train.lon == lon]
     df_test_gridcell = df_test.loc[df_test.lat == lat].loc[df_test.lon == lon]
     
-    X_train = inputs_train.values
     y_train = df_train_gridcell[output].values
-    
-    X_test = inputs_test.values
     y_test = df_test_gridcell[output].values
     
     emulator = TPOTRegressor(
