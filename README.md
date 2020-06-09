@@ -10,7 +10,7 @@
 ### Setup Python environment
 - Create a conda environment with the required libraries from the config file (.yml) in the repository:
 ```
-conda env create --name emulator --file=emulator.yml  
+conda env create --name emulator --file=pangeo.yml  
 pip install SALib  
 ```
 - Or create your own using:
