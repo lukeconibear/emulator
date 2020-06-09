@@ -11,7 +11,9 @@
 - Create a conda environment with the required libraries from the config file (.yml) in the repository:
 ```
 conda env create --name pangeo --file=pangeo.yml  
-pip install SALib  
+pip install salib dask_labextension pyarrow  
+jupyter labextension install dask-labextension  
+jupyter labextension install @jupyter-widgets/jupyterlab-manager  
 ```
 
 ### License  
