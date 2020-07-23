@@ -14,8 +14,8 @@ import xarray as xr
 
 # global variables
 output = 'o3'
-data_dir = '/nobackup/earlacoa/machinelearning/data/' + output + '_emulators'
-out_dir = '/nobackup/earlacoa/machinelearning/test'
+data_dir = sys.argv[1]
+out_dir = sys.argv[2]
 EMULATORS = None
 
 def get_emulator_files(file_path=data_dir, file_pattern='emulator*'):
@@ -49,7 +49,7 @@ def create_dataset(results):
     df_results = df_results.set_index(['lat', 'lon']).sort_index()
     ds_custom_output = xr.Dataset.from_dataframe(df_results)
     ds_custom_output.to_netcdf(
-        out_dir + '/ds_' + filename + '_' + output + '.nc'
+        out_dir + 'ds_' + filename + '_' + output + '.nc'
     )
 
 def custom_predicts(custom_input):
@@ -131,13 +131,14 @@ def main():
     print(f'custom inputs remaining for {output}: {len(custom_inputs)}')
 
     # dask bag and process
-    custom_inputs_process = 100
+    custom_inputs_process = 1000
     print(f'predicting for {custom_inputs_process} custom inputs ...')
     bag_custom_inputs = db.from_sequence(custom_inputs[0:custom_inputs_process], npartitions=n_workers)
     bag_custom_inputs.map(custom_predicts).compute()
 
     time_end = time.time() - time_start
     print(f'completed in {time_end:0.2f} seconds, or {time_end / 60:0.2f} minutes, or {time_end / 3600:0.2f} hours')
+    print(f'average time per custom input is {time_end / custom_inputs_process:0.2f} seconds')
 
     client.close()
     cluster.close()
