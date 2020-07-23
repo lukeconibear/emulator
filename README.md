@@ -1,11 +1,13 @@
 ## Emulator
 ### Scripts
+- Merge shapefiles into a single multi-polygon (`create_merged_shapefile.ipynb`).  
 - Crop emissions data to China shapefile training (`emis_apply_mask_train.py`) and test (`emis_apply_mask_test.py`) data.  
 - Design of Latin hypercube designs (`latin_hypercube.ipynb`).  
 - Output of Latin hypercube designs for training (`latin_hypercube_inputs_training.csv`) and test (`latin_hypercube_inputs_test.csv`) data.  
 - Automatic machine learning tool (TPOT) using genetic programming to optimise model pipeline on 50 random grid cells (`tpot_optimiser.py`), with outputs in the `tpot_gridcells` folder (`tpot_emulator_pipeline_PM2_5_DRY_*.py`).  
 - Configuration for TPOT based on Gaussian process regresor (`config_regressor_gaussian.py`).  
-- Emulator cross-validation and sensitivity analysis interactively computed on a HPC using Dask and Jupyter Lab (`emulator.ipynb`).  
+- Emulator cross-validation and sensitivity analysis (`emulator.ipynb`). Interactively computed on a HPC using Dask and Jupyter Lab following instructions [here](https://pangeo.io/setup_guides/hpc.html#).  
+- Emulator predictions for custom inputs (`emulator_predictions.py`). Submitted in batch mode to HPC using Dask (`emulator_predictions.bash`), viewing worker status on Jupyter Lab.  
 
 ### Setup Python environment
 - Create a conda environment with the required libraries from the config file (.yml) in the repository:
