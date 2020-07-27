@@ -7,7 +7,7 @@
 - Automatic machine learning tool (TPOT) using genetic programming to optimise model pipeline on 50 random grid cells (`tpot_optimiser.py`), with outputs in the `tpot_gridcells` folder (`tpot_emulator_pipeline_PM2_5_DRY_*.py`).  
 - Configuration for TPOT based on Gaussian process regresor (`config_regressor_gaussian.py`).  
 - Emulator cross-validation and sensitivity analysis (`emulator.ipynb`). Interactively computed on a HPC using Dask and Jupyter Lab following instructions [here](https://pangeo.io/setup_guides/hpc.html#).  
-- Emulator predictions for custom inputs (`emulator_predictions.py`). Submitted in batch mode to HPC using Dask (`emulator_predictions.bash`), viewing worker status on Jupyter Lab.  
+- Emulator predictions for custom inputs (`emulator_predictions.py`). Submitted to HPC (`emulator_predictions.bash`) using Dask for workers viewing worker status on Jupyter Lab. Can submit in batch mode (`emulator_predictions_batch.bash`).    
 - Various emulator plots including emulator evaluation, sensitivity maps, prediction maps, and 2D contour pairs, (`emulator_plots.ipynb`).  
 
 ### Setup Python environment
