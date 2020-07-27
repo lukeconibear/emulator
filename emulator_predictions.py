@@ -13,7 +13,7 @@ import pandas as pd
 import xarray as xr
 
 # global variables
-output = 'o3'
+output = 'PM2_5_DRY'
 data_dir = sys.argv[1]
 out_dir = sys.argv[2]
 EMULATORS = None
@@ -51,6 +51,7 @@ def create_dataset(results):
     ds_custom_output.to_netcdf(
         out_dir + 'ds_' + filename + '_' + output + '.nc'
     )
+    print(f'completed for {filename}')
 
 def custom_predicts(custom_input):
 
@@ -79,26 +80,27 @@ def custom_predicts(custom_input):
 def main():
     # dask cluster and client
     n_processes = 1
-    n_jobs = 30
+    n_jobs = 35
     n_workers = n_processes * n_jobs
-    n_memory = 1
 
     cluster = SGECluster(
         interface='ib0',
         walltime='01:00:00',
-        memory=f'{n_processes * n_memory:.0f} G',
-        resource_spec=f'h_vmem={n_memory:.0f}G',
+        memory=f'2 G',
+        resource_spec=f'h_vmem=2G',
         scheduler_options={
             'dashboard_address': ':5757',
         },
+        project='admiralty',
         job_extra = [
-          '-cwd',
-          '-V',
-          f'-pe smp {n_processes}'
+            '-cwd',
+            '-V',
+            f'-pe smp {n_processes}',
+            f'-l disk=1G',
         ],
         local_directory = os.sep.join([
-          os.environ.get('PWD'),
-          'dask-worker-space'
+            os.environ.get('PWD'),
+            'dask-worker-space'
         ])
     )
 
@@ -110,11 +112,11 @@ def main():
 
     # custom inputs
     matrix_stacked = np.array(np.meshgrid(
-        np.linspace(0, 1.4, 8), # 1.5 and 16 for 0.1, 1.5 and 6 for 0.3, 1.4 and 8 for 0.2
-        np.linspace(0, 1.4, 8),
-        np.linspace(0, 1.4, 8),
-        np.linspace(0, 1.4, 8),
-        np.linspace(0, 1.4, 8)
+        np.linspace(0, 1.5, 16), # 1.5 and 16 for 0.1, 1.5 and 6 for 0.3, 1.4 and 8 for 0.2
+        np.linspace(0, 1.5, 16),
+        np.linspace(0, 1.5, 16),
+        np.linspace(0, 1.5, 16),
+        np.linspace(0, 1.5, 16)
     )).T.reshape(-1, 5)
     custom_inputs_set = set(tuple(map(float, map("{:.1f}".format, item))) for item in matrix_stacked)
 
@@ -131,14 +133,14 @@ def main():
     print(f'custom inputs remaining for {output}: {len(custom_inputs)}')
 
     # dask bag and process
-    custom_inputs_process = 1000
-    print(f'predicting for {custom_inputs_process} custom inputs ...')
-    bag_custom_inputs = db.from_sequence(custom_inputs[0:custom_inputs_process], npartitions=n_workers)
+    custom_inputs = custom_inputs[0:5000] # run in 1,000 chunks over 30 cores, each chunk taking 1 hour
+    print(f'predicting for {len(custom_inputs)} custom inputs ...')
+    bag_custom_inputs = db.from_sequence(custom_inputs, npartitions=n_workers)
     bag_custom_inputs.map(custom_predicts).compute()
 
     time_end = time.time() - time_start
     print(f'completed in {time_end:0.2f} seconds, or {time_end / 60:0.2f} minutes, or {time_end / 3600:0.2f} hours')
-    print(f'average time per custom input is {time_end / custom_inputs_process:0.2f} seconds')
+    print(f'average time per custom input is {time_end / len(custom_inputs):0.2f} seconds')
 
     client.close()
     cluster.close()
