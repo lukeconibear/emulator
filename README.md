@@ -8,7 +8,7 @@
 - Configuration for TPOT based on Gaussian process regresor (`config_regressor_gaussian.py`).  
 - Emulator cross-validation and sensitivity analysis (`emulator.ipynb`). Interactively computed on a HPC using Dask and Jupyter Lab following instructions [here](https://pangeo.io/setup_guides/hpc.html#).  
 - Emulator predictions for custom inputs (`emulator_predictions.py`). Submitted to HPC (`emulator_predictions.bash`) using Dask for workers viewing worker status on Jupyter Lab. Can submit in batch mode (`emulator_predictions_batch.bash`).    
-- Regrid custom outputs to population grid of the world (`custom_outputs_regrid.py`). Submitted to HPC (`custom_outputs_regrid.bash`) using Dask for workers viewing worker status on Jupyter Lab. Can submit in batch mode (`custom_outputs_regrid_batch.bash`).  
+- Regrid custom outputs to population grid of the world (`regrid_to_popgrid.py`). Submitted to HPC (`regrid_to_popgrid.bash`) using Dask for workers viewing worker status on Jupyter Lab. Can submit in batch mode (`regrid_to_popgrid_batch.bash`).  
 - Crop population-weighted output predictions to region's shapefile (`popweighted_region.py`). Submitted to HPC (`popweighted_region.bash`) using Dask for workers viewing worker status on Jupyter Lab. Uses cropping functions (`cutshapefile.py`).  
 - Various emulator plots including emulator evaluation, sensitivity maps, prediction maps, and 2D contour pairs, (`emulator_plots.ipynb`).  
 
