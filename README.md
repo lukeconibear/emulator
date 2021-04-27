@@ -24,4 +24,4 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 ### License  
 This code is currently licensed under the GPLv3 License, free of charge for non-commercial use.  
-[![DOI](https://zenodo.org/badge/249476351.svg)](https://zenodo.org/badge/latestdoi/249476351)  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4723475.svg)](https://doi.org/10.5281/zenodo.4723475)
