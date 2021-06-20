@@ -1,5 +1,6 @@
 ## Emulator
 ![simulator_emulator_sensitivity_analysis](https://user-images.githubusercontent.com/19871268/122675407-31deff00-d1d1-11eb-877b-9ad90d6b3741.png)
+*Image sources [1](https://www.nasa.gov/content/a-portrait-of-global-winds/), [2](https://www.aidanscannell.com/post/gaussian-process-regression/), and [3](http://6degreesoffreedom.co/circle-random-sampling/).*  
 
 ### Scripts
 - Merge shapefiles into a single multi-polygon (`create_merged_shapefile.ipynb`).  
