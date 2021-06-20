@@ -1,4 +1,6 @@
 ## Emulator
+![simulator_emulator_sensitivity_analysis](https://user-images.githubusercontent.com/19871268/122675407-31deff00-d1d1-11eb-877b-9ad90d6b3741.png)
+
 ### Scripts
 - Merge shapefiles into a single multi-polygon (`create_merged_shapefile.ipynb`).  
 - Crop emissions data to China shapefile training (`emis_apply_mask_train.py`) and test (`emis_apply_mask_test.py`) data.  
